@@ -1,0 +1,26 @@
+{
+  "name": "baseball-road",
+  "version": "3.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/serve.mjs",
+    "serve": "node scripts/serve.mjs dist",
+    "build": "node scripts/build.mjs",
+    "test": "node --test tests/*.test.mjs",
+    "test:browser": "node tests/full-career-browser.mjs",
+    "test:browser-data": "node --test tests/data.test.mjs",
+    "test:career-browser": "node tests/full-career-browser.mjs",
+    "test:integrated-browser": "node tests/full-career-browser.mjs",
+    "validate:story": "node scripts/validate-story.mjs",
+    "test:browser-save": "node tests/full-save-browser.mjs",
+    "test:gameplay-quality": "node tests/gameplay-quality.mjs",
+    "package:release": "python scripts/package-release.py"
+  },
+  "devDependencies": {
+    "playwright": "1.62.1"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

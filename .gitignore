@@ -1,0 +1,5 @@
+node_modules/
+dist/
+.local/
+evidence/full-career/*
+!evidence/full-career/.gitkeep

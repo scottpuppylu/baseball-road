@@ -1,0 +1,12 @@
+export const CHAPTERS=Array.from({length:8},(_,i)=>({id:`year${Math.floor(i/2)+1}-${i%2?'spring':'fall'}`,year:Math.floor(i/2)+1,semester:i%2?'下學期':'上學期',title:i===0?'初入系壘':'尚未開發',available:i===0}));
+// Provisional original demo text; replace content without changing either minigame engine.
+export const SCENES={
+ arrival:{number:1,title:'第一張球隊合照，還沒有你',text:'大學的第一週，你經過系館旁的球場。幾個學長正在整理球具，有人朝你揮手：「新生嗎？一起來練吧。」課表還很陌生，但那片紅土似乎可以成為你的新起點。',choices:[{id:'join',name:'走進球場，試著加入',detail:'展開大一上學期的系壘故事。',next:'meet',effects:{trust:2}}]},
+ meet:{number:2,title:'球具袋旁的第一個選擇',text:'借來的手套還不太合手。練習夥伴問你想從哪裡開始。第一次出現在球隊裡，你想留下什麼樣的印象？',choices:[{id:'team',name:'先幫大家搬球具',detail:'隊友關係 +8、信任 +3；體能 −4。',next:'batting',effects:{relationships:8,trust:3,condition:-4}},{id:'practice',name:'請夥伴陪你加練',detail:'Contact 成長 +2、信心 +3；體能 −8。',next:'batting',growth:{contact:2},effects:{confidence:3,condition:-8}},{id:'study',name:'說好練完就去上課',detail:'體能 +6、課業平衡 +8；信任 −2。',next:'batting',effects:{condition:6,academics:8,trust:-2}}]},
+ batting:{number:3,title:'第一輪打擊練習',text:'夥伴把球拋成慢壘的弧線。先看清出手，再跟著球一起走到打擊點。這次不是選一個模擬答案——輪到你親自揮棒。',game:'batting',choices:[{id:'steady',name:'穩定擊球，找準甜蜜點',detail:'較大的操作容錯；五球練習。接近金色球框時揮棒。',windowBonus:24,powerBonus:0},{id:'drive',name:'試著打出自己的長打',detail:'Power 臨時 +10，容錯較小。成績仍取決於你的實際揮棒。',windowBonus:0,powerBonus:10}]},
+ battingResponse:{number:4,title:'球飛出去以後',text:'打擊練習的結果將決定接下來的對話。',choices:[{id:'help',name:'回頭替夥伴撿球',detail:'隊友關係 +5、體能 −3。',next:'fieldingIntro',effects:{relationships:5,condition:-3}},{id:'recover',name:'喝口水，把呼吸找回來',detail:'體能 +12；保留這次學到的經驗。',next:'fieldingIntro',effects:{condition:12}}]},
+ fieldingIntro:{number:5,title:'不是只有打擊能被看見',text:'下一段練習換到外野。系壘需要願意把球接回來的人。你可以把注意力放在配合，也可以爭取更多練習，讓剛才的表現成為下一步。',choices:[{id:'together',name:'和夥伴一起讀落點',detail:'隊友關係 +5；守備落點容錯 +8（遊戲規則）。',next:'fielding',effects:{relationships:5},catchBonus:8},{id:'challenge',name:'主動站到練習的第一排',detail:'信任 +4、體能 −7；接球成功時更容易獲得實戰機會。',next:'fielding',effects:{trust:4,condition:-7},catchBonus:0}]},
+ fielding:{number:6,title:'追著球的影子跑',text:'高飛球的影子告訴你落點。移動到圈內，等球降到手套高度時接球。站對位置和抓對時機，一樣重要。',game:'fielding',choices:[{id:'start',name:'戴好手套，開始接球',detail:'四球高飛球練習。拖曳球場／左右移動，再按接球。'}]},
+ positioning:{number:7,title:'你在這支球隊的位置',text:'兩輪練習結束，夥伴收起球。今天的操作表現和你之前的選擇，會一起寫進球隊對你的第一印象。',choices:[{id:'continue',name:'把這一頁留在系壘筆記裡',detail:'查看大一上短篇原型結算；失誤也能繼續故事。',next:'final'}]},
+ final:{number:8,title:'合照裡，終於有了你',text:'這不是畢業，也不是完整一年的成績。只是大一上，你第一次在系壘找到一個位置。後面的故事，還沒有寫好。',choices:[]}
+};

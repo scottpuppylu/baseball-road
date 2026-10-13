@@ -1,0 +1,14 @@
+{
+  "version": "3.0.0",
+  "developmentCheckpoint": "f33aa34b4d86f78561b58db492e41a8a65d63081",
+  "runtimeSHA256": "e67f40dfec45ad8362c58fbe04050d57ecef0b6c2cb02895f0d429a0adca34d7",
+  "publication": "Reviewed initial source snapshot. Local development checkpoints/evidence/reference photographs are retained locally and are not part of public history.",
+  "content": {
+    "semesters": 8,
+    "storyNodes": 56,
+    "gameplayPerNewCareer": 17,
+    "selectablePlayerIdentities": 16,
+    "sharedEvents": 2
+  },
+  "saveSchema": 1
+}

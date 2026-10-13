@@ -1,0 +1,60 @@
+name: Baseball Road verification and approved Pages release
+on:
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: Publish only after owner approval of this exact commit
+        required: true
+        type: boolean
+        default: false
+permissions:
+  contents: read
+concurrency:
+  group: baseball-road-pages
+  cancel-in-progress: false
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          package-manager-cache: false
+      - run: npm ci
+      - run: npm test
+      - run: npm run validate:story
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - name: Full real UI and save/source checks on static build
+        env:
+          BASEBALL_ROAD_URL: http://127.0.0.1:5192
+        run: |
+          python3 -m http.server 5192 --bind 127.0.0.1 --directory dist > /tmp/baseball-road-static.log 2>&1 &
+          road_server_pid=$!
+          trap 'kill "$road_server_pid"' EXIT
+          curl --fail --retry 10 --retry-delay 1 --retry-connrefused http://127.0.0.1:5192/release.json
+          npm run test:browser
+          npm run test:browser-save
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: dist
+  publish:
+    needs: verify
+    if: ${{ inputs.publish && vars.RELEASE_APPROVED_SHA == github.sha }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/configure-pages@v5
+      - name: Deploy approved artifact
+        id: deployment
+        uses: actions/deploy-pages@v4
